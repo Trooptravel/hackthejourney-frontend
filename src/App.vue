@@ -1,14 +1,44 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <Layout />
   </div>
 </template>
 
+<script>
+import Layout from './views/Layout'
+import ICN from '@/components/ICN';
+
+import {mapState,mapActions,mapGetters,mapMutations} from "vuex";
+
+export default {
+	components: {
+		Layout
+	},
+   data() { return {
+
+  		}
+  	},
+  created() {
+
+  },
+  mounted() {
+    this.pageLoaded();
+  },
+  methods:{
+  	...mapActions(['pageLoaded']),
+  	...mapMutations([])
+  },
+  computed:{
+  	...mapGetters([]),
+  	...mapState([])
+  }
+}
+</script>
+
+
 <style lang="scss">
+@import './assets/sass/app.scss';
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

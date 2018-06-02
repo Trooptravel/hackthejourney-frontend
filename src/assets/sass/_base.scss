@@ -1,0 +1,43 @@
+@font-face {
+	font-family: "Raleway";
+  src: url("/static/fonts/raleway/Raleway-Regular.ttf");
+}
+
+html, body {
+  height:100%;
+  overflow: hidden;
+  margin-right: -4px; /*COMPENSATES THE VERTICAL SCROLLBAR*/
+  margin-top: 0px; /*COMPENSATES THE HORIZONTAL SCROLLBAR*/
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+  -webkit-transform-style: preserve-3d;
+
+  font-family: 'Roboto', sans-serif;
+  /* font-family: 'Raleway', 'Avenir', Helvetica, Arial, sans-serif; */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  margin-top: 0px;
+  overflow: hidden;
+
+}
+
+
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+/* optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: #FF0000;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
