@@ -45,7 +45,6 @@ export default {
     this.subscribeToAllEvents();
   },
   beforeDestroy() {
-    console.log('Google Map Marker On Before Destroy:',this.options);
     this.unsubscribeFromAllEvents();
     if (this.htmlMarker !== undefined)  {
       this.htmlMarker.setMap(null);
@@ -207,7 +206,6 @@ export default {
     }
 
     HTMLMarker.prototype.draw = function () {
-      console.log('THIS MARKER WANTS TO REDRAW!',mrk);
       var overlayProjection = this.getProjection();
       var position = overlayProjection.fromLatLngToDivPixel(this.pos);
       mrk.lat = this.pos.lat();
@@ -235,7 +233,6 @@ export default {
           let isInViewPort = gmap.getBounds().contains(mrk.latlng);
           if (currentViewPort !== isInViewPort) {
             mrk.isInViewPort = isInViewPort;
-            // console.log(EVENT_ID,isInViewPort);
             sendEvent(EVENT_ID,isInViewPort);
           }
         }
@@ -249,14 +246,12 @@ export default {
 
 
     let focusMarker = function(data) {
-      console.log('FOCUS MARKER: ',mrk.options.id+'_FOCUS');
       mrk.focussed = true;
       mrk.setActiveMarker({marker_id:mrk.options.id,layer:mrk.options.layer});
       setTimeout(function() {
         mrk.focussed = false;
       },1000)
     };
-    console.log('REGISTER EVENT:',mrk.options.id+'_FOCUS');
 
     onEvent(this.options.id+'_FOCUS',focusMarker);
     // this.calculating           = this.options.calculating        === undefined ? false : this.options.calculating();

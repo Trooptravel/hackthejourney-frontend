@@ -10,6 +10,12 @@
 			<div v-if="settingsPane === 'hotels'">
 				<HotelPreferences />
 			</div>
+			<div v-if="settingsPane === 'poi'">
+				<AddTripPOIs />
+			</div>
+			<div v-if="settingsPane === 'results'">
+				<HotelPrices />
+			</div>
 		</div>
 	</div>
 </template>
@@ -17,10 +23,16 @@
 <script>
 import { mapGetters } from 'vuex'
 import HotelPreferences from '@/components/HotelPreferences'
+import HotelPrices from '@/components/HotelPrices'
+import POISelections from '@/components/POISelections'
+import AddTripPOIs from '@/components/AddTripPOIs'
 export default {
 
 	components: {
-		HotelPreferences
+		HotelPreferences,
+		POISelections,
+		AddTripPOIs,
+		HotelPrices
 	},
 
 	computed: {

@@ -12,16 +12,27 @@ import { db } from './firestore/firebase.js';
 
 import ICN from '@/components/ICN';
 import MapMarker from '@/components/MapMarker';
+import Radar from '@/components/Radar';
 
 require('@/utils/js-utils.js');
 require('@/utils/date-utils.js');
 require('@/utils/form-utils.js');
 require('@/utils/color-utils.js');
 
+
+Vue.filter('price',function(data) {
+  let res = data+ '.';
+  res = res.split('.')[0];
+  return  res.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+);
+
+
 Vue.config.productionTip = false
 
 Vue.component('icn', ICN);
 Vue.component('map-marker', MapMarker);
+Vue.component('radar', Radar);
 Vue.use(ElementUI, { locale });
 Vue.use(Vuex);
 

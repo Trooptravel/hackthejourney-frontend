@@ -5,13 +5,15 @@
 			<i @click="toggleSidebar"
 			   class="fas fa-bars sidebar__expand-icon"></i>
 
+			<SideNavItem label="Points of Interest"
+			             icon="map-marker-alt"
+						 @click="toggleSettings('poi')" />
 			<SideNavItem label="Hotel Preferences"
 			             icon="building"
-						 @click="toggleSettings('hotels')" />
-			<SideNavItem label="Two"
-			             icon="map-marker-alt" />
-			<SideNavItem label="Three"
-			             icon="star" />
+			             @click="toggleSettings('hotels')" />
+			<SideNavItem label="Favourites"
+			             icon="star"
+						 @click="toggleSettings('results')" />
 
 		</div>
 		<div class="settings-pane">
@@ -48,8 +50,8 @@ export default {
 
 <style lang="scss">
 .sidenav-container {
-	display: flex;
-	height: 100%;
+  display: flex;
+  height: 100%;
 }
 
 .sidebar {

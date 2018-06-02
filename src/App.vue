@@ -51,7 +51,7 @@ input.form-control {
   border-color: inherit;
   -webkit-box-shadow: none;
   box-shadow: none;
-  border: 0;
+  border: 1px sold #ccc;
   &:focus {
     outline: none;
   }

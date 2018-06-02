@@ -19,9 +19,18 @@ const FREE_PATHS = [
     state: 'pois'
   },
   {
+    db: '/htj_hotel/*/htj_hotel_offer/*',
+    state: 'hotels/*/offers/*'
+  },
+  {
     db: '/stats',
     state: '/stats'
+  },
+  {
+    db: '/local_travel',
+    state: '/travel'
   }
+
 
 ];
 
@@ -86,10 +95,19 @@ function requestJSON(context, commitField, url, object) {
 
 //----------------------------------------------------------------------------------------------------------------------
 
+  function zoomToMidPoint(state) {
+    let lat = (state.stats.poi_stats === undefined) ? 0 : state.stats.poi_stats.lat_mid_weighted;
+    let lon = (state.stats.poi_stats === undefined) ? 0 : state.stats.poi_stats.lon_mid_weighted;
+    window.sendEvent('ON_PAN_TO_POINT',{lat,lng:lon,zoom:12});
+  }
+
 
 const actions = {
   'addPOI': (context, poi) => {
     window.createFirestoreRecord(['/htj_poi'], poi.id, poi);
+  },
+  'zoomToMidPoint':(context) => {
+    zoomToMidPoint(context.state);
   },
   'pageLoaded': (context) => {
     for (var p = 0; p < FREE_PATHS.length; p++) {
@@ -98,7 +116,7 @@ const actions = {
     }
   },
   'mapZoomChanged': (context, zoom) => {
-    console.log('MAP ZOOM CHANGED!');
+    // console.log('MAP ZOOM CHANGED!');
   },
 
   'toggleSidebar': (context) => {
@@ -106,7 +124,7 @@ const actions = {
 	},
 
   'toggleSettings': (context, setting) => {
-		console.log('setting:', setting);
+		// console.log('setting:', setting);
 
     context.commit('toggleSettings', setting)
   }
@@ -127,10 +145,43 @@ const mutations = {
 
   toggleSettings(state, settings) {
     state.settingsPane = settings
-  }
+	},
+
+	setLoadingHotels(state, isLoading) {
+		state.loadingHotels = isLoading
+	}
 }
 
 //----------------------------------------------------------------------------------------------------------------------
+
+function buildHotel(hotel)  {
+    let marker = {
+    id: hotel.id,
+    clickable: true,
+    layer:'hotels',
+    icon: 'hotel',
+    photo: '',
+    vendor: 'fa',
+    angle: 0,
+    map_broadcast_event:'ON_MARKER_IN_VIEW_'+hotel.id,
+    filterFunction: function () { return true },
+    eventName: 'ON_POI_CHANGED',
+    label: hotel.name,
+    draggable: false,
+    color: '#98BF0D',
+    markerVisible: true,
+    defaults: {
+      continent: function () { return true },
+      layer: function () { return true },
+      timeline: function () { return true },
+      zoom: function () { return true }
+    },
+    // category_zoom_visibility:{},
+    component: 'map-marker',
+    marker_position: { lat: hotel.lat, lng: hotel.lon }
+  };
+  return marker;
+}
 
 function buildMarker(poi) {
   let marker = {
@@ -146,7 +197,7 @@ function buildMarker(poi) {
     eventName: 'ON_POI_CHANGED',
     label: poi.name,
     draggable: false,
-    color: '#884EA0',
+    color: '#0085BF',
     markerVisible: true,
     defaults: {
       continent: function () { return true },
@@ -163,7 +214,7 @@ function buildMarker(poi) {
 
 function buildMidPointMarkers(state) {
   let markers = {};
-  console.log('state.stats', state.stats);
+  // console.log('state.stats', state.stats);
   if (state.stats.poi_stats !== undefined) {
     let midpoint = {
       id: 'midpoint',
@@ -222,12 +273,25 @@ function buildMidPointMarkers(state) {
     markers.weight_point = weight_point;
 
   }
+
+
+
   return markers;
 }
 
 const getters = {
 	sidebarExpanded: state => state.sidebarExpanded,
 	settingsPane: state => state.settingsPane,
+  midpoint:(state) => {
+    let lat = (state.stats.poi_stats === undefined) ? 0 : state.stats.poi_stats.lat_mid_weighted;
+    let lon = (state.stats.poi_stats === undefined) ? 0 : state.stats.poi_stats.lon_mid_weighted;
+    return {lat,lon};
+  },
+
+  hotelSummary:(state) => {
+    return window.objectToArray(state.hotels);
+  },
+
   mainMapMarkers: (state) => {
 
     let combined = {};
@@ -238,12 +302,19 @@ const getters = {
       }
     };
 
+    if (Object.keys(state.hotels).length !== 0) {
+      for (var h in state.hotels) {
+        let hotelMarker = buildHotel(state.hotels[h]);
+        combined[hotelMarker.id] = hotelMarker
+      }
+    };
+
     let midMarkers = buildMidPointMarkers(state);
     if (midMarkers.midpoint !== undefined) {
       combined.midpoint = midMarkers.midpoint;
       combined.weight_point = midMarkers.weight_point;
     }
-    console.log('COMBINED:', combined);
+    // console.log('COMBINED:', combined);
     return combined;
   }
 }
@@ -254,8 +325,11 @@ const state = {
   hw: 'hallo world!',
 	sidebarExpanded: false,
 	settingsPane: undefined,
+	loadingHotels: false,
   pois: {},
-  stats: {}
+  stats: {},
+  hotels:{},
+  travel:{}
 }
 
 //----------------------------------------------------------------------------------------------------------------------

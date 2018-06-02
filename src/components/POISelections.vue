@@ -1,6 +1,6 @@
 <template>
 	<div class="hotels">
-		<h4> Hotel Preferences </h4>
+		<h4> Point of Interests </h4>
 		<div class="hotels__form">
 			<div class="hotels__form-element">
 				<span class="demo-input-label">Check-in Date</span>
@@ -32,7 +32,7 @@
 				<span class="demo-input-label">Minimum rating</span>
 				<el-rate v-model="query.ratings"></el-rate>
 			</div>
-			<div class="hotels__form-element" style="width: 80%">
+			<div class="hotels__form-element">
 				<span class="demo-input-label">Price</span>
 				<el-slider v-model="query.priceRangeUpper"
 				           :max="500"></el-slider>
@@ -47,10 +47,9 @@
 <script>
 import axios from 'axios';
 import TTAHotelBooking from '@/components/TTAHotelBooking'
-import { mapGetters, mapActions, mapMutations } from 'vuex'
+import { mapGetters } from 'vuex'
 
-const postURL = 'https://hackthejourney.landobyte.com/vue';
-const calcTravelURL = 'https://amadeushack-c3157.appspot.com/calcTravel';
+const postURL = 'https://hackthejourney.landobyte.com/vue'
 export default {
 
 	components: {
@@ -77,35 +76,19 @@ export default {
 	},
 
 	methods: {
-		...mapActions([
-			'toggleSettings'
-		]),
-
-		...mapMutations([
-			'setLoadingHotels'
-		]),
-
 		findHotels() {
 			const content = {
 				...this.query,
 				...this.midpoint
 			}
 
-			delete content.priceRangeUpper
-			delete content.ratings
-
-			this.setLoadingHotels(true)
-
 			axios.post(postURL, content)
 				.then(res => {
 					console.log('res:', res);
-					axios.get(calcTravelURL)
-					this.setLoadingHotels(false)
 				})
 				.catch(err => {
 					console.log('err:', err);
 				})
-			this.toggleSettings('results')
 		}
 	}
 

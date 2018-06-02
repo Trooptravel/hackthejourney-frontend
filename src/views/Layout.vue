@@ -10,7 +10,6 @@
 		<div class="body">
 
 			<GoogleMap  :center="mapcenter" :markers="mapmarkers"></GoogleMap>
-			<!-- <AddTripPOIs></AddTripPOIs> -->
 
 			<!-- <router-view/> -->
 		</div>
@@ -30,9 +29,11 @@ import Footer from './Footer'
 import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
 import GoogleMap from '@/components/GoogleMap.vue';
 import AddTripPOIs from '@/components/AddTripPOIs.vue';
+import HotelPrices from '@/components/HotelPrices.vue';
 
 export default {
 	components: {
+		HotelPrices,
 		AddTripPOIs,
 		GoogleMap,
 		Header,
@@ -41,7 +42,9 @@ export default {
 	},
 	props: [],
 	data() {		return {
-			showMap:true
+			showMap:true,
+			timer:undefined,
+			center:{lat:0,lon:0}
 		}
 	},
 	created() {
@@ -51,20 +54,39 @@ export default {
 
 	},
 	methods: {
-		...mapActions([]),
+		...mapActions(['zoomToMidPoint']),
 		...mapMutations([]),
-		hideShowMap() {
-			this.showMap = false;
-			let l = this;
-			setTimeout(function() {
-				l.showMap = true;
-			}, 10000);
+		zoomMapToCenter() {
+			let layout = this;
+			console.log('ZOOMING THE MAP!');
+			if (this.center !== this.midpoint) {
+
+
+			if (this.timer === undefined) {
+
+				layout.timer = setTimeout(function() {
+
+					layout.zoomToMidPoint();
+					layout.center = layout.midpoint;
+				},2000);
+			}
+			else {
+				clearTimeout(this.timer);
+				layout.timer = undefined;
+				layout.timer = setTimeout(function() {
+					layout.zoomToMidPoint();
+					layout.center = layout.midpoint;
+				},2000);
+			}
+		  }
+			// this.zoomToMidPoint();
 		}
 	},
 	computed: {
 		...mapGetters([
 			'mainMapMarkers',
-			'sidebarExpanded'
+			'sidebarExpanded',
+			'midpoint'
 		]),
 		...mapState([]),
 		mapcenter() {
@@ -75,8 +97,8 @@ export default {
 			return center;
 		},
 		mapmarkers() {
-			console.log('REFRESHING MARKERS:');
-			this.hideShowMap();
+			// console.log('REFRESHING MARKERS:');
+			this.zoomMapToCenter();
 			let res = [];
 			for (var m in this.mainMapMarkers ) {
 				let marker = this.mainMapMarkers[m];

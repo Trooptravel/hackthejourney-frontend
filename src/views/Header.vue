@@ -1,7 +1,7 @@
 <template>
 	<div class="header">
 		<img class="logo"   src="../assets/trooptravel-icon.png">
-	<AddTripPOIs></AddTripPOIs>
+	<!-- <AddTripPOIs></AddTripPOIs> -->
 	</div>
 </template>
 
