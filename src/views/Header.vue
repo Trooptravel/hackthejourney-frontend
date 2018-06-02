@@ -1,7 +1,7 @@
 <template>
 	<div class="header">
-		<img class="logo"
-		     src="../assets/trooptravel-icon.png">
+		<img class="logo"   src="../assets/trooptravel-icon.png">
+	<AddTripPOIs></AddTripPOIs>
 	</div>
 </template>
 
@@ -9,8 +9,11 @@
 
 import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
 
+import AddTripPOIs from '../components/AddTripPOIs.vue';
+
+
 export default {
-	components: {},
+	components: {AddTripPOIs},
 	props: [],
 	data() {
 		return {

@@ -2,7 +2,7 @@
   <div  v-show="markerVisible">
     <div v-show="markerVisible" :ref="options.id"  :class="markerClass()" :style="markerStyle" @click="markerClicked">
       <div  class="google-map-marker-content">
-     <component :is="options.component" :options="options" :calculating="options.calculating === true"></component>
+         <component :is="options.component" :options="options" :calculating="options.calculating === true"></component>
       </div>
     </div>
   </div>
@@ -338,9 +338,6 @@ div.google-map-marker {
   z-index: 3000;
 }
 
-.normal-marker{
-
-}
 
 
 @keyframes shake {
@@ -364,8 +361,5 @@ div.google-map-marker {
 
 div.google-map-marker-content{
   flex:1;
-}
-div.htmlMarker div {
-
 }
 </style>

@@ -10,7 +10,7 @@
 		<div class="body">
 
 			<GoogleMap  :center="mapcenter" :markers="mapmarkers"></GoogleMap>
-			<AddTripPOIs></AddTripPOIs>
+			<!-- <AddTripPOIs></AddTripPOIs> -->
 
 			<!-- <router-view/> -->
 		</div>
@@ -29,7 +29,7 @@ import Footer from './Footer'
 
 import { mapState, mapActions, mapGetters, mapMutations } from "vuex";
 import GoogleMap from '@/components/GoogleMap.vue';
-import AddTripPOIs from '../components/AddTripPOIs.vue';
+import AddTripPOIs from '@/components/AddTripPOIs.vue';
 
 export default {
 	components: {
@@ -81,6 +81,7 @@ export default {
 			for (var m in this.mainMapMarkers ) {
 				let marker = this.mainMapMarkers[m];
 				marker.sort = Math.random() * 100000;
+				marker.id = marker.id + marker.sort;
 				res.push(marker);
 			};
 			return res.sort(function(a,b) {return a.sort - b.sort});

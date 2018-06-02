@@ -46,7 +46,7 @@
       <img :src="options.photo" alt="">
     </div>
     <div class="marker-text" :style="iconStyle">
-      <div class="text-letter" v-for="(l,index) in short_label" :key="l" :style="letterStyle(index)">{{l}}</div>
+      <div class="text-letter" v-for="(l,index) in short_label" :key="index" :style="letterStyle(index)">{{l}}</div>
     </div>
     <div class="map-marker-shadow">
 
@@ -169,7 +169,7 @@
             },
             short_label() {
 							console.log('this.options',this.options);
-              let label = this.options.lat;
+              let label = this.options.label; // .lat + '';
               return (label.length > 20) ? label.substring(0,20).toUpperCase() + '...' : label.toUpperCase();
               // return (this.options.label.length > 20) ? this.options.label.substring(0,20).toUpperCase() + '...' : this.options.label.toUpperCase();
             },
@@ -249,20 +249,20 @@
     }
 
     .calculating-marker{
-      animation: shimmer;
-      animation-duration: 1500ms;
-      animation-iteration-count: 100;
-      animation-timing-function: linear;
+      // animation: shimmer;
+      // animation-duration: 1500ms;
+      // animation-iteration-count: 100;
+      // animation-timing-function: linear;
     }
 
     .hover{
       /* animation-delay: 30ms; */
-      animation-name:baloon;
-      animation-duration: 0.3s;
-      animation-iteration-count: 1;
-      animation-timing-function: linear;
+      // animation-name:baloon;
+      // animation-duration: 0.3s;
+      // animation-iteration-count: 1;
+      // animation-timing-function: linear;
       z-index: 2000;
-      animation-fill-mode:forwards;
+      // animation-fill-mode:forwards;
       pointer-events: none;
     }
 
@@ -270,11 +270,12 @@
       animation-name:deflate;
       animation-duration: 0.2s;
       animation-iteration-count: 1;
-      animation-timing-function: linear;
-      z-index: 1000;
-      animation-fill-mode:forwards;
-      pointer-events: none;
-    }
+    //   animation-timing-function: linear;
+    //   z-index: 1000;
+    //   animation-fill-mode:forwards;
+    //   pointer-events: none;
+    //
+     }
 
     .visible{
       /* animation: drop;
@@ -282,52 +283,52 @@
     }
 
 
-    @keyframes shimmer{
-      0% {
-        opacity: 0.9;
-      }
-      20% {
-        opacity: 0.7;
-      }
-      50% {
-        opacity: 0.5;
-      }
-      80% {
-        opacity: 0.7;
-      }
-      100% {
-        opacity: 0.9;
-      }
-    }
+    // @keyframes shimmer{
+    //   0% {
+    //     opacity: 0.9;
+    //   }
+    //   20% {
+    //     opacity: 0.7;
+    //   }
+    //   50% {
+    //     opacity: 0.5;
+    //   }
+    //   80% {
+    //     opacity: 0.7;
+    //   }
+    //   100% {
+    //     opacity: 0.9;
+    //   }
+    // }
 
 
-    @keyframes baloon{
-      0% {
-        transform:scale(1);
-      }
-      100% {
-        transform:scale(2);
-      }
-    }
+    // @keyframes baloon{
+    //   0% {
+    //     transform:scale(1);
+    //   }
+    //   100% {
+    //     transform:scale(2);
+    //   }
+    // }
 
-    @keyframes deflate{
-      0% {
-        transform:scale(2);
-      }
-      100% {
-        transform:scale(1);
-      }
-    }
+    // @keyframes deflate{
+    //   0% {
+    //     transform:scale(2);
+    //   }
+    //   100% {
+    //     transform:scale(1);
+    //   }
+    // }
 
 
-    @keyframes drop{
-      0% {
-        transform:translate3d(0px,-1000px,0px) scale3d(3,3,1);
-      }
-      100% {
-        transform:translate3d(0px,0px,0px) scale3d(1,1,1);
-      }
-    }
+    // @keyframes drop{
+    //   0% {
+    //     transform:translate3d(0px,-1000px,0px) scale3d(3,3,1);
+    //   }
+    //   100% {
+    //     transform:translate3d(0px,0px,0px) scale3d(1,1,1);
+    //   }
+    // }
 
 
 

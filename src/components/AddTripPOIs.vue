@@ -1,15 +1,9 @@
 <template>
 <div class="add-trip-poi-container">
     <div class="poi-top">
-        <vue-google-autocomplete  :country="['es']" @touchstart="selectAllText" @click="selectAllText" @focus="selectAllText" ref="location-address" id="location-address" types="" classname="location-autocomplete" v-on:placechanged="getAddress"
-                    :enableGeolocation="true" placeholder="Your Location...">
+        <vue-google-autocomplete  :country="['gb']" @touchstart="selectAllText" @click="selectAllText" @focus="selectAllText" ref="location-address" id="location-address" types="" classname="location-autocomplete" v-on:placechanged="getAddress"
+                    :enableGeolocation="true" placeholder="Add a point of interest...">
         </vue-google-autocomplete>
-    </div>
-    <div class="poi-points">
-
-    </div>
-    <div class="poi-bottom">
-
     </div>
 </div>
 </template>
@@ -137,25 +131,15 @@ import VueGoogleAutocomplete from './VueGoogleAutocomplete.vue';
 <style scoped>
 
 	div.add-trip-poi-container{
-        border: 1px solid red;
+        /* border: 1px solid red; */
         position:fixed;
         width: 300px;
-        height: 300px;
-        top:50px;
+        height: 40px;
+        top:0px;
         right:100px;
-    z-index: 100;
+    z-index: 1000;
         }
 
 
-div.poi-top{
-    border: 1px solid green;
-}
-div.poi-points{
-        border: 1px solid blue;
-
-}
-div.poi-bottom{
-        border: 1px solid yellow;
-}
 
 </style>
