@@ -35,15 +35,15 @@ import {mapState,mapActions,mapGetters,mapMutations} from "vuex";
 <style scoped>
 
 	div.radar{
-        display:none;
+        /* display:none; */
         pointer-events: none;
-        border: 2px solid lightblue;
+        border: 1px solid lightblue;
         position: relative;
         width: 10px; 
         height: 10px;
         border-radius: 200px;
         animation-name:radar;
-        animation-duration: 2s;
+        animation-duration: 3s;
        animation-iteration-count: infinite;
        animation-timing-function: linear;
        
@@ -56,7 +56,7 @@ import {mapState,mapActions,mapGetters,mapMutations} from "vuex";
 @keyframes radar{
    0% {
      transform:scale(1);
-     opacity:0.8;
+     opacity:0.6;
    }
    100% {
      transform:scale(80);

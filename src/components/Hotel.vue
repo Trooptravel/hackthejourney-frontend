@@ -69,19 +69,31 @@ export default {
   border-bottom: 1px solid #ddd;
   font-size: 12px;
   flex-direction: column;
+  transition: all .4s;
+
+  &:hover {
+	  background-color: #ddd;
+  }
 
   &__row {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+	// flex-wrap: nowrap;
   }
 
   &__name {
     font-weight: 600;
+	white-space: nowrap;
+	flex: 0 0 80%;
+	overflow: hidden;
+	text-align: left;
   }
 
   &__price {
-    float: right;
+	  overflow: hidden;
+	//   min-width: 50px;
+	//   flex: 0 0 50px;
   }
 }
 </style>

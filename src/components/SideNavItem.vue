@@ -1,5 +1,6 @@
 <template>
 	<div class="sidenav-item"
+	     :class="{'sidenav-item--active': active}"
 	     @click="$emit('click')">
 		<div v-if="sidebarExpanded"
 		     class="sidenav-item--expanded">
@@ -24,6 +25,10 @@ export default {
 		icon: {
 			type: String,
 			required: true
+		},
+		active: {
+			type: Boolean,
+			default: false
 		}
 	},
 
@@ -48,6 +53,10 @@ export default {
   padding-bottom: 10px;
   cursor: pointer;
   transition: all 0.3s;
+
+	&--active {
+		background-color: #aaa;
+	}
 
   &:hover {
     background-color: #ccc;

@@ -7,13 +7,16 @@
 
 			<SideNavItem label="Points of Interest"
 			             icon="map-marker-alt"
-						 @click="toggleSettings('poi')" />
+									 :active="settingsPane === 'poi'"
+			             @click="toggleSettings('poi')" />
 			<SideNavItem label="Hotel Preferences"
 			             icon="building"
+									 :active="settingsPane === 'hotels'"
 			             @click="toggleSettings('hotels')" />
 			<SideNavItem label="Favourites"
 			             icon="star"
-						 @click="toggleSettings('results')" />
+									 :active="settingsPane === 'results'"
+			             @click="toggleSettings('results')" />
 
 		</div>
 		<div class="settings-pane">
@@ -34,7 +37,8 @@ export default {
 
 	computed: {
 		...mapGetters([
-			'sidebarExpanded'
+			'sidebarExpanded',
+			'settingsPane'
 		])
 	},
 

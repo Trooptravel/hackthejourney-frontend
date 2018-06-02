@@ -56,10 +56,12 @@ export default {
 	methods: {
 		...mapActions(['zoomToMidPoint']),
 		...mapMutations([]),
+		xzoomMapToCenter() {},
+
 		zoomMapToCenter() {
 			let layout = this;
 			console.log('ZOOMING THE MAP!');
-			if (this.center !== this.midpoint) {
+			if (this.center !== this.midpoint ) {
 
 
 			if (this.timer === undefined) {

@@ -265,7 +265,7 @@ function buildMidPointMarkers(state) {
         zoom: function () { return true }
       },
       // category_zoom_visibility:{},
-      component: 'map-marker',
+      component: 'radar',
       marker_position: { lat: state.stats.poi_stats.lat_mid_weighted, lng: state.stats.poi_stats.lon_mid_weighted }
     };
 
